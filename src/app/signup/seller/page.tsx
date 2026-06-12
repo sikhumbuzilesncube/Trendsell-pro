@@ -28,24 +28,31 @@ export default function SellerSignup() {
     storeName: '',
     paymentMethod: '',
     mobileMoneyProvider: '',
+    mobileMoneyNumber: '',
     bank: '',
     accountNumber: '',
     password: '',
     confirmPassword: '',
   })
 
-  const [showAccountNumber, setShowAccountNumber] = useState(false)
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({...prev, [name]: value }))
     
-    if (name === 'bank') {
-      setShowAccountNumber(value!== '')
+    // Auto-fill mobile money number with main phone when provider is selected
+    if (name === 'mobileMoneyProvider' && value &&!formData.mobileMoneyNumber) {
+      setFormData(prev => ({...prev, mobileMoneyNumber: prev.phone }))
     }
+    
+    // Reset fields when switching payment method
     if (name === 'paymentMethod') {
-      setShowAccountNumber(false)
-      setFormData(prev => ({...prev, bank: '', mobileMoneyProvider: '' }))
+      setFormData(prev => ({ 
+       ...prev, 
+        bank: '', 
+        accountNumber: '',
+        mobileMoneyProvider: '',
+        mobileMoneyNumber: ''
+      }))
     }
   }
 
@@ -56,9 +63,19 @@ export default function SellerSignup() {
       alert('Passwords do not match')
       return
     }
+
+    if (formData.paymentMethod === 'mobile' &&!formData.mobileMoneyProvider) {
+      alert('Please select a mobile money provider')
+      return
+    }
+
+    if (formData.paymentMethod === 'bank' &&!formData.bank) {
+      alert('Please select your bank')
+      return
+    }
     
     console.log('Seller signup:', formData)
-    alert('Signup submitted! We will connect this to the database next.')
+    alert('Account created! Check console for data. Next we connect the database.')
   }
 
   return (
@@ -174,7 +191,7 @@ export default function SellerSignup() {
                 </div>
 
                 {formData.paymentMethod === 'mobile' && (
-                  <div className="ml-7">
+                  <div className="ml-7 space-y-4">
                     <select
                       name="mobileMoneyProvider"
                       required
@@ -187,9 +204,21 @@ export default function SellerSignup() {
                       <option value="OneMoney">OneMoney</option>
                       <option value="InnBucks">InnBucks</option>
                     </select>
-                    <p className="mt-1 text-xs text-slate-500">
-                      We'll send payments to your registered number: {formData.phone || '+263...'}
-                    </p>
+                    
+                    <div>
+                      <input
+                        type="tel"
+                        name="mobileMoneyNumber"
+                        required
+                        value={formData.mobileMoneyNumber}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                        placeholder="Mobile Money Number"
+                      />
+                      <p className="mt-1 text-xs text-slate-500">
+                        Defaults to your phone number. Change if different.
+                      </p>
+                    </div>
                   </div>
                 )}
 
@@ -224,7 +253,7 @@ export default function SellerSignup() {
                       ))}
                     </select>
 
-                    {showAccountNumber && (
+                    {formData.bank && (
                       <div>
                         <input
                           type="text"
