@@ -39,15 +39,13 @@ export default function SellerSignup() {
     const { name, value } = e.target
     setFormData(prev => ({...prev, [name]: value }))
     
-    // Auto-fill mobile money number with main phone when provider is selected
     if (name === 'mobileMoneyProvider' && value &&!formData.mobileMoneyNumber) {
       setFormData(prev => ({...prev, mobileMoneyNumber: prev.phone }))
     }
     
-    // Reset fields when switching payment method
     if (name === 'paymentMethod') {
       setFormData(prev => ({ 
-       ...prev, 
+      ...prev, 
         bank: '', 
         accountNumber: '',
         mobileMoneyProvider: '',
@@ -93,7 +91,7 @@ export default function SellerSignup() {
           <h1 className="mt-6 text-3xl font-extrabold text-[#0B3D2E]">
             Join as a Seller
           </h1>
-          <p className="mt-2 text-slate-600">
+          <p className="mt-2 text-slate-700">
             Start selling without inventory. Set up your account in 2 minutes.
           </p>
         </div>
@@ -114,7 +112,7 @@ export default function SellerSignup() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                   placeholder="John"
                 />
               </div>
@@ -128,7 +126,7 @@ export default function SellerSignup() {
                   required
                   value={formData.surname}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                   placeholder="Doe"
                 />
               </div>
@@ -145,7 +143,7 @@ export default function SellerSignup() {
                 required
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                 placeholder="+263 77 123 4567"
               />
             </div>
@@ -161,10 +159,10 @@ export default function SellerSignup() {
                 required
                 value={formData.storeName}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                 placeholder="e.g. John's Electronics"
               />
-              <p className="mt-1 text-xs text-slate-500">This is what customers will see</p>
+              <p className="mt-1 text-xs text-slate-600">This is what customers will see</p>
             </div>
 
             {/* Payment Method */}
@@ -183,7 +181,7 @@ export default function SellerSignup() {
                     value="mobile"
                     checked={formData.paymentMethod === 'mobile'}
                     onChange={handleChange}
-                    className="w-4 h-4 text-[#0B3D2E] focus:ring-[#0B3D2E]"
+                    className="w-5 h-5 text-[#0B3D2E] focus:ring-[#0B3D2E]"
                   />
                   <label htmlFor="mobile" className="ml-3 text-sm font-medium text-slate-900">
                     Mobile Money
@@ -197,9 +195,9 @@ export default function SellerSignup() {
                       required
                       value={formData.mobileMoneyProvider}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition bg-white"
+                      className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition bg-white text-slate-900"
                     >
-                      <option value="">Select provider</option>
+                      <option value="" className="text-slate-400">Select provider</option>
                       <option value="Ecocash">Ecocash</option>
                       <option value="OneMoney">OneMoney</option>
                       <option value="InnBucks">InnBucks</option>
@@ -212,10 +210,10 @@ export default function SellerSignup() {
                         required
                         value={formData.mobileMoneyNumber}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                        className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                         placeholder="Mobile Money Number"
                       />
-                      <p className="mt-1 text-xs text-slate-500">
+                      <p className="mt-1 text-xs text-slate-600">
                         Defaults to your phone number. Change if different.
                       </p>
                     </div>
@@ -231,7 +229,7 @@ export default function SellerSignup() {
                     value="bank"
                     checked={formData.paymentMethod === 'bank'}
                     onChange={handleChange}
-                    className="w-4 h-4 text-[#0B3D2E] focus:ring-[#0B3D2E]"
+                    className="w-5 h-5 text-[#0B3D2E] focus:ring-[#0B3D2E]"
                   />
                   <label htmlFor="bank" className="ml-3 text-sm font-medium text-slate-900">
                     Bank Transfer
@@ -245,11 +243,11 @@ export default function SellerSignup() {
                       required
                       value={formData.bank}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition bg-white"
+                      className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition bg-white text-slate-900"
                     >
-                      <option value="">Select your bank</option>
+                      <option value="" className="text-slate-400">Select your bank</option>
                       {RBZ_BANKS.map(bank => (
-                        <option key={bank} value={bank}>{bank}</option>
+                        <option key={bank} value={bank} className="text-slate-900">{bank}</option>
                       ))}
                     </select>
 
@@ -261,10 +259,10 @@ export default function SellerSignup() {
                           required
                           value={formData.accountNumber}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                          className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                           placeholder="Account Number"
                         />
-                        <p className="mt-1 text-xs text-slate-500">
+                        <p className="mt-1 text-xs text-slate-600">
                           USD or ZIG account - we'll match the currency
                         </p>
                       </div>
@@ -287,7 +285,7 @@ export default function SellerSignup() {
                   minLength={8}
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                   placeholder="Minimum 8 characters"
                 />
               </div>
@@ -301,7 +299,7 @@ export default function SellerSignup() {
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-stone-400 rounded-lg focus:ring-2 focus:ring-[#0B3D2E] focus:border-[#0B3D2E] outline-none transition text-slate-900 placeholder:text-slate-400"
                   placeholder="Re-enter password"
                 />
               </div>
@@ -315,7 +313,7 @@ export default function SellerSignup() {
               Create Seller Account
             </button>
 
-            <p className="text-center text-sm text-slate-600">
+            <p className="text-center text-sm text-slate-700">
               Already have an account?{' '}
               <Link href="/login" className="text-[#0B3D2E] font-semibold hover:text-[#C9A44C]">
                 Login
@@ -324,7 +322,7 @@ export default function SellerSignup() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-slate-500 mt-8">
+        <p className="text-center text-xs text-slate-600 mt-8">
           By signing up, you agree to our{' '}
           <Link href="/terms" className="underline hover:text-[#0B3D2E]">
             Terms and Conditions
